@@ -1,11 +1,14 @@
+const data = require('../data')
+
 const response = {
   module: 'find',
   status: 200,
-  data: {},
+  data: [],
   message: null,
 }
 
-function find(query, callback) {
+async function find(query, callback) {
+  response.data = await data.read()
   callback(response)
 }
 

@@ -2,7 +2,11 @@ const express = require('express')
 const path = require('path')
 const http = require('http')
 const chalk = require('chalk')
+
 const find = require('./server/routes/find')
+const data = require('./server/data')
+
+data.read()
 
 const developPort = '8080'
 const app = express()
@@ -19,7 +23,7 @@ if (process.env.PORT) {
 
 // **************************************************************************
 // **************************************************************************
-// ***** DAO
+// ***** api routes
 // **************************************************************************
 // **************************************************************************
 
@@ -27,6 +31,12 @@ if (process.env.PORT) {
 // ----- /api/find
 // -----
 // --------------------------------------------------------------------------
+app.get('/api/find', (req, res) => {
+  find(req.body, (response) => {
+    res.json(response)
+  })
+})
+
 app.post('/api/find', (req, res) => {
   find(req.body, (response) => {
     res.json(response)
@@ -54,5 +64,5 @@ const port = process.env.PORT || developPort
 app.set('port', port)
 const server = http.createServer(app)
 server.listen(port, () =>
-  console.log(chalk.bgGreen(`Running on localhost: ${port}`))
+  console.log(chalk.bgGreen(` Running on localhost: http://localhost:${port} `))
 )
