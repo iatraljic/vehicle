@@ -8,7 +8,6 @@ const response = {
 }
 
 async function find(query, callback) {
-  console.log('read')
   response.data = await data.read()
   callback(response)
 }
