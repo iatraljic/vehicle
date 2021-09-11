@@ -7,8 +7,8 @@ const response = {
   message: null,
 }
 
-async function find(query, callback) {
-  response.data = await data.read()
+function find(query, callback) {
+  response.data = data.getYear()
   callback(response)
 }
 

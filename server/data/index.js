@@ -1,19 +1,52 @@
-const fs = require('fs/promises')
+const fs = require('fs')
 const path = require('path')
 
-let json = []
+let all = []
+let make = []
+let model = []
+let year = []
 
-async function read() {
-  console.log('read')
-  if (!json.length) {
-    console.log('from disk')
-    const data = await fs.readFile(path.join(__dirname, 'VehicleInfo.json'))
-    json = JSON.parse(data)
+;(function () {
+  const makeSet = new Set()
+  const modelSet = new Set()
+  const yearSet = new Set()
+
+  console.log('IIFE')
+  if (!all.length) {
+    const data = fs.readFileSync(path.join(__dirname, 'VehicleInfo.json'))
+    all = JSON.parse(data)
+
+    all.forEach((item) => {
+      makeSet.add(item.make)
+      modelSet.add(item.model)
+      yearSet.add(item.year)
+    })
+
+    make = [...makeSet]
+    model = [...modelSet]
+    year = [...yearSet]
   }
+})()
 
-  return json
+function getAll() {
+  return all
+}
+
+function getMake() {
+  return make
+}
+
+function getModel() {
+  return model
+}
+
+function getYear() {
+  return year
 }
 
 module.exports = {
-  read,
+  getAll,
+  getMake,
+  getModel,
+  getYear,
 }

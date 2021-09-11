@@ -6,8 +6,6 @@ const chalk = require('chalk')
 const find = require('./server/routes/find')
 const data = require('./server/data')
 
-data.read()
-
 const developPort = '8080'
 const app = express()
 

@@ -15,7 +15,7 @@ function Home() {
         <div className='col'>
           {data.map((item, index) => (
             <span key={index}>
-              {`${item.make} - ${item.model} - ${item.year}`}
+              {`${item}`}
               <br />
             </span>
           ))}
