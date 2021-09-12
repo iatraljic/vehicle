@@ -13,10 +13,7 @@ const response = {
 }
 
 function find(query, callback) {
-  response.data.make = data.getMake(query)
-  response.data.model = data.getModel(query)
-  response.data.year = data.getYear(query)
-  response.data.filtered = data.getFiltered(query)
+  response.data = data.getFiltered(query)
 
   callback(response)
 }
