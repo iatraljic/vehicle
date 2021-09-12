@@ -29,12 +29,6 @@ if (process.env.PORT) {
 // ----- /api/find
 // -----
 // --------------------------------------------------------------------------
-app.get('/api/find', (req, res) => {
-  find(req.body, (response) => {
-    res.json(response)
-  })
-})
-
 app.post('/api/find', (req, res) => {
   find(req.body, (response) => {
     res.json(response)

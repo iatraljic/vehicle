@@ -17,14 +17,14 @@ let year = []
     all = JSON.parse(data)
 
     all.forEach((item) => {
-      makeSet.add(item.make)
-      modelSet.add(item.model)
-      yearSet.add(item.year)
+      makeSet.add(`${item.make}`)
+      modelSet.add(`${item.model}`)
+      yearSet.add(`${item.year}`)
     })
 
-    make = [...makeSet]
-    model = [...modelSet]
-    year = [...yearSet]
+    make = [...makeSet].sort()
+    model = [...modelSet].sort()
+    year = [...yearSet].sort()
   }
 })()
 

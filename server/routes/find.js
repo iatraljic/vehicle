@@ -3,12 +3,20 @@ const data = require('../data')
 const response = {
   module: 'find',
   status: 200,
-  data: [],
+  data: {
+    make: [],
+    model: [],
+    year: [],
+  },
   message: null,
 }
 
 function find(query, callback) {
-  response.data = data.getYear()
+  console.log(query)
+  response.data.make = data.getMake()
+  response.data.model = data.getModel()
+  response.data.year = data.getYear()
+
   callback(response)
 }
 
