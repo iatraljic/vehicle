@@ -63,3 +63,7 @@ footer {
 footer > p {
   line-height: 50px;
 }
+
+label {
+  padding-top: 1rem;
+}

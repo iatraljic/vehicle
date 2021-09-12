@@ -2,50 +2,169 @@ const fs = require('fs')
 const path = require('path')
 
 let all = []
-let make = []
-let model = []
-let year = []
 
 ;(function () {
-  const makeSet = new Set()
-  const modelSet = new Set()
-  const yearSet = new Set()
-
   console.log('IIFE')
   if (!all.length) {
     const data = fs.readFileSync(path.join(__dirname, 'VehicleInfo.json'))
     all = JSON.parse(data)
-
-    all.forEach((item) => {
-      makeSet.add(`${item.make}`)
-      modelSet.add(`${item.model}`)
-      yearSet.add(`${item.year}`)
-    })
-
-    make = [...makeSet].sort()
-    model = [...modelSet].sort()
-    year = [...yearSet].sort()
   }
 })()
 
+// --------------------------------------------------------------------------
+// ----- getAll
+// -----
+// --------------------------------------------------------------------------
 function getAll() {
   return all
 }
 
-function getMake() {
+// --------------------------------------------------------------------------
+// ----- getMake
+// -----
+// --------------------------------------------------------------------------
+function getMake(query) {
+  let make = []
+
+  if (query.make[0]) {
+    make = [...query.make]
+  } else {
+    const makeSet = new Set()
+
+    all.forEach((item) => {
+      if (query.model[0] && query.year[0]) {
+        if (
+          query.model[0] === `${item.model}` &&
+          query.year[0] === `${item.year}`
+        ) {
+          makeSet.add(`${item.make}`)
+        }
+      } else if (query.model[0]) {
+        if (query.model[0] === `${item.model}`) {
+          makeSet.add(`${item.make}`)
+        }
+      } else if (query.year[0]) {
+        if (query.year[0] === `${item.year}`) {
+          makeSet.add(`${item.make}`)
+        }
+      } else {
+        makeSet.add(`${item.make}`)
+      }
+    })
+
+    make = [...makeSet].sort()
+  }
+
   return make
 }
 
-function getModel() {
+// --------------------------------------------------------------------------
+// ----- getModel
+// -----
+// --------------------------------------------------------------------------
+function getModel(query) {
+  let model = []
+
+  if (query.model[0]) {
+    model = [...query.model]
+  } else {
+    const modelSet = new Set()
+
+    all.forEach((item) => {
+      if (query.make[0] && query.year[0]) {
+        if (
+          query.make[0] === `${item.make}` &&
+          query.year[0] === `${item.year}`
+        ) {
+          modelSet.add(`${item.model}`)
+        }
+      } else if (query.make[0]) {
+        if (query.make[0] === `${item.make}`) {
+          modelSet.add(`${item.model}`)
+        }
+      } else if (query.year[0]) {
+        if (query.year[0] === `${item.year}`) {
+          modelSet.add(`${item.model}`)
+        }
+      } else {
+        modelSet.add(`${item.model}`)
+      }
+    })
+
+    model = [...modelSet].sort()
+  }
+
   return model
 }
 
-function getYear() {
+// --------------------------------------------------------------------------
+// ----- getYear
+// -----
+// --------------------------------------------------------------------------
+function getYear(query) {
+  let year = []
+
+  if (query.year[0]) {
+    year = [...query.year]
+  } else {
+    const yearSet = new Set()
+
+    all.forEach((item) => {
+      if (query.make[0] && query.model[0]) {
+        if (
+          query.make[0] === `${item.make}` &&
+          query.model[0] === `${item.model}`
+        ) {
+          yearSet.add(`${item.year}`)
+        }
+      } else if (query.make[0]) {
+        if (query.make[0] === `${item.make}`) {
+          yearSet.add(`${item.year}`)
+        }
+      } else if (query.model[0]) {
+        if (query.model[0] === `${item.model}`) {
+          yearSet.add(`${item.year}`)
+        }
+      } else {
+        yearSet.add(`${item.year}`)
+      }
+    })
+
+    year = [...yearSet].sort()
+  }
+
   return year
+}
+
+// --------------------------------------------------------------------------
+// ----- getFiltered
+// -----
+// --------------------------------------------------------------------------
+function getFiltered(query) {
+  let filtered = []
+
+  if (query.make[0] || query.model[0] || query.year[0]) {
+    all.forEach((item) => {
+      if (query.make[0] && query.make[0] !== `${item.make}`) {
+        return
+      }
+      if (query.model[0] && query.model[0] !== `${item.model}`) {
+        return
+      }
+      if (query.year[0] && query.year[0] !== `${item.year}`) {
+        return
+      }
+
+      filtered.push(item)
+    })
+  }
+
+  return filtered
 }
 
 module.exports = {
   getAll,
+  getFiltered,
   getMake,
   getModel,
   getYear,

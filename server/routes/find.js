@@ -7,15 +7,16 @@ const response = {
     make: [],
     model: [],
     year: [],
+    filtered: [],
   },
   message: null,
 }
 
 function find(query, callback) {
-  console.log(query)
-  response.data.make = data.getMake()
-  response.data.model = data.getModel()
-  response.data.year = data.getYear()
+  response.data.make = data.getMake(query)
+  response.data.model = data.getModel(query)
+  response.data.year = data.getYear(query)
+  response.data.filtered = data.getFiltered(query)
 
   callback(response)
 }

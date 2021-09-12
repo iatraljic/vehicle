@@ -1,36 +1,40 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
 
+import { MainContext } from '../context'
 import SearchBar from '../components/SearchBar'
 
 function Home() {
-  const [data, setData] = useState({ make: [], model: [], year: [] })
-
-  useEffect(() => {
-    fetch('/api/find', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ make: 'make', model: 'model', year: 'year' }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        return setData(data.data)
-      })
-  }, [])
+  const { data, selected, changeSelected } = useContext(MainContext)
 
   return (
     <div className='container-fluid'>
-      <SearchBar data={data} />
+      <SearchBar
+        data={data}
+        selected={selected}
+        changeSelected={changeSelected}
+      />
       <div className='row'>
         <div className='col'>
-          {/* {data.model.map((item, index) => (
-            <span key={index}>
-              {`${item}`}
-              <br />
-            </span>
-          ))} */}
+          <div className='table-responsive'>
+            <table className='table'>
+              <thead className='table-light'>
+                <tr>
+                  <th scope='col'>Make</th>
+                  <th scope='col'>Model</th>
+                  <th scope='col'>Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.filtered.map((item) => (
+                  <tr key={item._id.$oid}>
+                    <td>{`${item.make}`}</td>
+                    <td>{`${item.model}`}</td>
+                    <td>{`${item.year}`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
