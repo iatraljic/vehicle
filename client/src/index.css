@@ -67,3 +67,37 @@ footer > p {
 label {
   padding-top: 1rem;
 }
+
+table {
+  margin-top: 1rem;
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #00000055;
+  z-index: 20;
+}
+
+.spinner {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #ffffffbb;
+  width: fit-content;
+  align-self: center;
+}
+
+.loading .spinner-border {
+  width: 10rem;
+  height: 10rem;
+  border: 1rem solid currentColor;
+  border-right-color: transparent;
+}

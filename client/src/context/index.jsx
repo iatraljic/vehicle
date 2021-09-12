@@ -12,9 +12,11 @@ const initialState = {
 function ContextlProvider(props) {
   const [selected, setSelected] = useState(initialState)
   const [data, setData] = useState(initialState)
+  const [loading, setLoading] = useState(false)
 
   // ***** load data
   useEffect(() => {
+    setLoading(true)
     fetch('/api/find', {
       method: 'POST',
       headers: {
@@ -25,6 +27,7 @@ function ContextlProvider(props) {
       .then((res) => res.json())
       .then((data) => {
         console.log('data', data)
+        setLoading(false)
         return setData(data.data)
       })
   }, [selected])
@@ -45,6 +48,16 @@ function ContextlProvider(props) {
         changeSelected,
       }}
     >
+      {loading && (
+        <div className='loading'>
+          <div className='spinner'>
+            <div className='spinner-border text-primary' role='status'>
+              <span className='visually-hidden'>Loading...</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {props.children}
     </MainContext.Provider>
   )

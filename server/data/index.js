@@ -7,7 +7,26 @@ let all = []
   console.log('IIFE')
   if (!all.length) {
     const data = fs.readFileSync(path.join(__dirname, 'VehicleInfo.json'))
-    all = JSON.parse(data)
+    all = JSON.parse(data).sort((a, b) => {
+      if (a.make > b.make) {
+        return 1
+      } else if (a.make < b.make) {
+        return -1
+      } else {
+        if (a.model > b.model) {
+          return 1
+        } else if (a.model < b.model) {
+          return -1
+        } else {
+          if (a.year > b.year) {
+            return 1
+          } else if (a.year < b.year) {
+            return -1
+          }
+        }
+      }
+      return 0
+    })
   }
 })()
 

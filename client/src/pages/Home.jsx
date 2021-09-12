@@ -16,7 +16,7 @@ function Home() {
       <div className='row'>
         <div className='col'>
           <div className='table-responsive'>
-            <table className='table'>
+            <table className='table table-striped table-hover'>
               <thead className='table-light'>
                 <tr>
                   <th scope='col'>Make</th>
