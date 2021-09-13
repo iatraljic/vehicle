@@ -15,7 +15,7 @@
     "server:dev": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client:start\"",
     "client:build": "cd client && npm run build",
-    "start": "npm run client:build && PORT=80 node index.js"
+    "start": "npm run client:build && node index.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",
