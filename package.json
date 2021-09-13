@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Ivan Ante Traljić (iatraljic@gmail.com)",
   "license": "MIT",
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+  },
   "scripts": {
     "postinstall": "cd client && npm install",
     "client:start": "cd client && npm start",
