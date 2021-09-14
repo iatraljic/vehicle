@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from 'react'
 export const MainContext = createContext()
 
 const initialState = {
+  id: [],
   make: [],
   model: [],
   year: [],
@@ -40,12 +41,33 @@ function ContextlProvider(props) {
     }))
   }
 
+  // ***** selection change
+  const removeVehicle = (id) => {
+    if (window.confirm('Do you really want to delete vehicle?')) {
+      setLoading(true)
+      fetch('/api/remove', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...selected, id: [id] }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log('data', data)
+          setLoading(false)
+          return setData(data.data)
+        })
+    }
+  }
+
   return (
     <MainContext.Provider
       value={{
         data,
         selected,
         changeSelected,
+        removeVehicle,
       }}
     >
       {loading && (

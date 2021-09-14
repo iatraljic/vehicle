@@ -5,6 +5,14 @@ let all = []
 
 ;(function () {
   console.log('IIFE')
+  loadAll()
+})()
+
+// --------------------------------------------------------------------------
+// ----- loadAll
+// -----
+// --------------------------------------------------------------------------
+function loadAll() {
   if (!all.length) {
     const data = fs.readFileSync(path.join(__dirname, 'VehicleInfo.json'))
     all = JSON.parse(data).sort((a, b) => {
@@ -28,7 +36,7 @@ let all = []
       return 0
     })
   }
-})()
+}
 
 // --------------------------------------------------------------------------
 // ----- getAll
@@ -80,7 +88,20 @@ function getFiltered(query) {
   return data
 }
 
+// --------------------------------------------------------------------------
+// ----- removeVechile
+// -----
+// --------------------------------------------------------------------------
+function removeVechile(query) {
+  if (query.id[0]) {
+    const index = all.findIndex((item) => item._id.$oid === query.id[0])
+    all.splice(index, 1)
+    // TODO save changes
+  }
+}
+
 module.exports = {
   getAll,
   getFiltered,
+  removeVechile,
 }

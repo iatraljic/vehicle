@@ -3,8 +3,9 @@ const path = require('path')
 const http = require('http')
 const chalk = require('chalk')
 
-const find = require('./server/routes/find')
 const data = require('./server/data')
+const find = require('./server/routes/find')
+const remove = require('./server/routes/remove')
 
 const developPort = '8080'
 const app = express()
@@ -31,6 +32,16 @@ if (process.env.PORT) {
 // --------------------------------------------------------------------------
 app.post('/api/find', (req, res) => {
   find(req.body, (response) => {
+    res.json(response)
+  })
+})
+
+// --------------------------------------------------------------------------
+// ----- /api/remove
+// -----
+// --------------------------------------------------------------------------
+app.delete('/api/remove', (req, res) => {
+  remove(req.body, (response) => {
     res.json(response)
   })
 })
