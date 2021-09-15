@@ -39,6 +39,19 @@ function loadAll() {
 }
 
 // --------------------------------------------------------------------------
+// ----- saveAll
+// -----
+// --------------------------------------------------------------------------
+function saveAll() {
+  if (all.length) {
+    fs.writeFileSync(
+      path.join(__dirname, 'VehicleInfo.json'),
+      JSON.stringify(all, null, 2)
+    )
+  }
+}
+
+// --------------------------------------------------------------------------
 // ----- getAll
 // -----
 // --------------------------------------------------------------------------
@@ -96,7 +109,8 @@ function removeVechile(query) {
   if (query.id[0]) {
     const index = all.findIndex((item) => item._id.$oid === query.id[0])
     all.splice(index, 1)
-    // TODO save changes
+
+    saveAll()
   }
 }
 
