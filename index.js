@@ -5,6 +5,7 @@ const chalk = require('chalk')
 
 const data = require('./server/data')
 const find = require('./server/routes/find')
+const add = require('./server/routes/add')
 const remove = require('./server/routes/remove')
 
 const developPort = '8080'
@@ -32,6 +33,16 @@ if (process.env.PORT) {
 // --------------------------------------------------------------------------
 app.post('/api/find', (req, res) => {
   find(req.body, (response) => {
+    res.json(response)
+  })
+})
+
+// --------------------------------------------------------------------------
+// ----- /api/add
+// -----
+// --------------------------------------------------------------------------
+app.post('/api/add', (req, res) => {
+  add(req.body, (response) => {
     res.json(response)
   })
 })

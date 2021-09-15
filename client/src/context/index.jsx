@@ -41,7 +41,29 @@ function ContextlProvider(props) {
     }))
   }
 
-  // ***** selection change
+  // ***** add vehicle
+  const addVehicle = (formData) => {
+    console.log('addVehicle', formData)
+    setLoading(true)
+    fetch('/api/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false)
+        if (data.status === 500) {
+          alert(`Error!\n\n${data.message}`)
+          setSelected(data.data)
+        }
+        return setData(data.data)
+      })
+  }
+
+  // ***** remove vehicle
   const removeVehicle = (id) => {
     if (window.confirm('Do you really want to delete vehicle?')) {
       setLoading(true)
@@ -54,7 +76,6 @@ function ContextlProvider(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          // console.log('data', data)
           setLoading(false)
           return setData(data.data)
         })
@@ -67,6 +88,7 @@ function ContextlProvider(props) {
         data,
         selected,
         changeSelected,
+        addVehicle,
         removeVehicle,
       }}
     >

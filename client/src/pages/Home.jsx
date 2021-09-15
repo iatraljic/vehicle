@@ -4,7 +4,7 @@ import { MainContext } from '../context'
 import SearchBar from '../components/SearchBar'
 
 function Home() {
-  const { data, selected, changeSelected, removeVehicle } =
+  const { data, selected, changeSelected, addVehicle, removeVehicle } =
     useContext(MainContext)
 
   return (
@@ -13,6 +13,7 @@ function Home() {
         data={data}
         selected={selected}
         changeSelected={changeSelected}
+        addVehicle={addVehicle}
       />
       <div className='row'>
         <div className='col'>
@@ -44,7 +45,7 @@ function Home() {
                       </button>
 
                       {/* TODO Edit */}
-                      <button
+                      {/* <button
                         type='button'
                         className='btn btn-primary'
                         title='Edit'
@@ -52,7 +53,7 @@ function Home() {
                         disabled
                       >
                         ✎
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}
